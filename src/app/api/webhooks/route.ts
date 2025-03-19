@@ -7,7 +7,7 @@ async function buffer(req: Request) {
     return Buffer.from(arrayBuffer);
 }
 
-export const dynamic = "force-dynamic";
+export const bodyParser = false;
 
 
 const relevantEvents = new Set([
