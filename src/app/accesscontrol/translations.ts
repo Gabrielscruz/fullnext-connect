@@ -1,0 +1,41 @@
+export const translations = {
+    en: {
+      buttonAdd: {
+        name: "Create",
+      },
+      id: "Id",
+      name: "Name",
+      linksQuantity: "Links Quantity",
+      actions: "Actions",
+      edit: "Edit",
+      remove: "Remove",
+      deleteConfirmation: "Are you sure you want to delete this access control {{name}}?",
+      yesDelete: "Yes, delete it",
+      cancel: "Cancel",
+      enter_access_control: "Enter access control",
+      access_control: "Access Control",
+      select_all: "Select All",
+      deselect_all: "Deselect all",
+      submit: "Submit",
+    },
+    pt: {
+      buttonAdd: {
+        name: "Novo",
+      },
+      id: "ID",
+      name: "Nome",
+      linksQuantity: "Quantidade de Links",
+      actions: "Ações",
+      edit: "Editar",
+      remove: "Remover",
+      deleteConfirmation: "Você tem certeza de que deseja remover este controle de acesso {{name}}?",
+      yesDelete: "Sim, remova",
+      cancel: "Cancelar",
+      enter_access_control: "Insira o controle de acesso",
+      access_control: "Controle de Acesso",
+      select_all: "Selecionar tudo",
+      deselect_all: "Desmarcar tudo",
+      submit: "Enviar",
+    },
+  };
+  
