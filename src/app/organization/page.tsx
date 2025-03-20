@@ -93,7 +93,7 @@ export default function Organization({ searchParams }: searchParamsProps) {
         }
     }, [status, router]);
 
-    if (status === "loading" || !session) return null;
+    if (status === "loading" || !session || searchParams?.email === undefined) return null;
 
     function toggleSelection(list: string[], setList: Function, option: string) {
         setList(list.includes(option) ? list.filter(item => item !== option) : [...list, option]);
