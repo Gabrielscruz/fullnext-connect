@@ -69,7 +69,7 @@ export default function LayoutApp({ children }: LayoutAppProps) {
                 const diffInTime = currentDate - createdAt; // diferença em milissegundos
                 const diffInDays = Math.round(diffInTime / (1000 * 3600 * 24)); // converte para dias
 
-                if (path !== "/" && path !== '/signup' && path !== '/organization' && path !== '/login') {
+                if (path !== "/" && path !== '/signup' && !path.startsWith('/organization') && path !== '/login') {
                     if (!user?.subscriptionActive && path.indexOf('payment') === -1 && diffInDays > 9) {
                         setIsBlock(true)
                         return
