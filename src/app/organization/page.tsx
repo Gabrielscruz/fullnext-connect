@@ -84,7 +84,6 @@ export default function Organization({ searchParams }: searchParamsProps) {
     const [step, setStep] = useState(1);
     const totalSteps = 5;
 
-    /*
     useEffect(() => {
         if (status === "unauthenticated" ) {
             if (searchParams?.email === undefined) {
@@ -93,7 +92,7 @@ export default function Organization({ searchParams }: searchParamsProps) {
             
         }
     }, [status, router]);
-*/
+
     if (status === "loading" || !session) return null;
 
     function toggleSelection(list: string[], setList: Function, option: string) {
