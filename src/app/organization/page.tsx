@@ -62,7 +62,7 @@ export default function Organization({ searchParams }: searchParamsProps) {
     const { theme } = useTheme();
     const { signIn } = useContext(AuthenticationContext);
     const { handleAlert } = useAlert();
-    const { language, translateText } = useLanguage();
+    const { language } = useLanguage();
     const [channels, setChannels] = useState<string[]>([]);
     const [nameChannelOther, setNameChannelOther] = useState<string>('');
     const [industries, setIndustries] = useState<string[]>([]);
