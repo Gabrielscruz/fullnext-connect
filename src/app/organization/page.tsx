@@ -85,8 +85,11 @@ export default function Organization({ searchParams }: searchParamsProps) {
     const totalSteps = 5;
 
     useEffect(() => {
-        if (status === "unauthenticated") {
-            router.replace('/');
+        if (status === "unauthenticated" ) {
+            if (searchParams?.email === undefined) {
+                router.replace('/');
+            }
+            
         }
     }, [status, router]);
 
