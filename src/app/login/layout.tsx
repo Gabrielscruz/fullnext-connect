@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Login | FullNext Connect",
   description:
-    "Acesse sua conta no FullNext para gerenciar relatórios Power BI de forma eficiente e segura.",
+    "Acesse sua conta no FullNext para gerenciar relatórios de forma eficiente e segura.",
 };
 
 

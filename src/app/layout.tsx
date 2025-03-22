@@ -14,7 +14,7 @@ const roboto = Roboto({
 export const metadata: Metadata = {
   title: "FullNext Connect",
   description:
-    "FullNext é uma solução inovadora para empresas que buscam otimizar o controle e gerenciamento de relatórios Power BI. Com funcionalidades que permitem a organização de relatórios em um sistema multi-tenancy, FullNext visa reduzir gastos com licenças e melhorar o acesso e a gestão de dados de forma eficiente.",
+    "FullNext é uma solução inovadora para empresas que buscam otimizar o controle e gerenciamento de relatórios. Com funcionalidades que permitem a organização de relatórios em um sistema multi-tenancy, FullNext visa reduzir gastos com licenças e melhorar o acesso e a gestão de dados de forma eficiente.",
 };
 
 export default function RootLayout({

@@ -29,7 +29,7 @@ export async function POST(req: Request) {
             customer: stripeCustomer.id,
             payment_method_types: ["card"],
             billing_address_collection: "required",
-            line_items: [{ price: "price_1R0PnWC71ylNeyfcyIqzJ83X", quantity: 1 }],
+            line_items: [{ price: "price_1R5V24C71ylNeyfcwfWZdFZB", quantity: 1 }],
             mode: "subscription",
             allow_promotion_codes: true,
             success_url: `${process.env.STRIPE_SUCESS_URL}/${tenantId}` as string,

@@ -13,7 +13,7 @@ interface PaymentProps {
 export default async function Payment({ params }: PaymentProps) {
     const baseURL = process.env.URL_BASE;
     const tenantId = params.tenant
-    const price: any = await stripe.prices.retrieve('price_1R0PnWC71ylNeyfcyIqzJ83X', {
+    const price: any = await stripe.prices.retrieve('price_1R5V24C71ylNeyfcwfWZdFZB', {
         expand: ['product']
     })
     const product = {
