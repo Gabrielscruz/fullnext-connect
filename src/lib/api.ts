@@ -4,7 +4,7 @@ import { parseCookies } from "nookies";
 const { "nextauth.token": token, tenant } = parseCookies();
 
 
-export const baseURL = "http://localhost:3333/";
+export const baseURL = "https://fullnext-connect-api.onrender.com/";
 
 export const api = axios.create({ baseURL });
 if (token) {

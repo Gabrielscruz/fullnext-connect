@@ -9,7 +9,7 @@ const nextConfig = {
   },
   reactStrictMode: false,
     images: {
-        domains: ['img.daisyui.com', 'api-full-next.onrender.com', 'app.powerbi.com',  'us-east-1.online.tableau.com', 'localhost', 'lh3.googleusercontent.com'],
+        domains: ['img.daisyui.com', 'fullnext-connect-api.onrender.com', 'app.powerbi.com',  'us-east-1.online.tableau.com', 'localhost', 'lh3.googleusercontent.com'],
       },
     
 };
