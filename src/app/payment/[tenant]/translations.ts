@@ -8,7 +8,7 @@ export const translations = {
         },
         Subscribe: {
             title: 'You have no active subscriptions.',
-            description: 'Subscribe now and unlock all FullNext features! Manage your reports efficiently and enjoy exclusive benefits including integration support, up to 20 users and unlimited reports for just',
+            description: 'Subscribe now and unlock all FullNext features! Manage your reports efficiently and enjoy exclusive benefits including integration support, up to 15 users and unlimited reports for just',
             button: 'Subscribe now'
         },
         SubscribeActive: {
@@ -34,7 +34,7 @@ export const translations = {
         },
         Subscribe: {
             title: 'Você não tem assinaturas ativas.',
-            description: 'Assine agora e desbloqueie todos os recursos do FullNext! Gerencie seus relatórios com eficiência e aproveite benefícios exclusivos, incluindo suporte à integração, até 20 usuários e relatórios ilimitados por apenas',
+            description: 'Assine agora e desbloqueie todos os recursos do FullNext! Gerencie seus relatórios com eficiência e aproveite benefícios exclusivos, incluindo suporte à integração, até 15 usuários e relatórios ilimitados por apenas',
             button: 'Assine agora'
         },
         SubscribeActive: {

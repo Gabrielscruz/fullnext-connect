@@ -20,7 +20,7 @@ export const translations = {
       accessMonitoring: "Track user activity. Know who accessed what, when, and for how long, ensuring greater control and transparency.",
       productivityTools: "Take advantage of built-in widgets like a calculator and notepad to optimize your workflow directly on the platform.",
       completeCustomization: "Personalize FullNext with your company’s branding, offering a seamless and aligned user experience.",
-      costSavings: "Significantly reduce expenses on licenses. FullNext allows you to manage up to 20 users for just $65 per month, maintaining efficiency without straining your budget.",
+      costSavings: "Significantly reduce expenses on licenses. FullNext allows you to manage up to 15 users for just R$ 800 per month, maintaining efficiency without straining your budget.",
       multiTenancy: "Organize and manage multiple reports in a single, centralized, and secure environment."
     }
   },
@@ -45,7 +45,7 @@ export const translations = {
       accessMonitoring: "Acompanhe a atividade do usuário. Saiba quem acessou o quê, quando e por quanto tempo, garantindo maior controle e transparência.",
       productivityTools: "Aproveite os widgets integrados, como uma calculadora e bloco de notas, para otimizar seu fluxo de trabalho diretamente na plataforma.",
       completeCustomization: "Personalize o FullNext com a marca da sua empresa, oferecendo uma experiência de usuário alinhada e sem interrupções.",
-      costSavings: "Reduza significativamente os custos com licenças, O FullNext permite gerenciar até 20 usuários por apenas R$800 por mês, mantendo a eficiência sem prejudicar o orçamento.",
+      costSavings: "Reduza significativamente os custos com licenças, O FullNext permite gerenciar até 15 usuários por apenas R$800 por mês, mantendo a eficiência sem prejudicar o orçamento.",
       multiTenancy: "Organize e gerencie múltiplos relatóriosm em um ambiente centralizado e seguro."
     }
   }

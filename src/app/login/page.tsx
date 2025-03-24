@@ -24,7 +24,8 @@ import { InputSelect } from "@/components/Input/InputSelect";
 
 import { api } from "@/lib/api";
 import { PiArrowLeft, PiDotsThreeFill, PiEnvelopeOpenLight, PiFingerprint } from "react-icons/pi";
-import dynamic from "next/dynamic";
+import { InputCode } from "@/components/Input/InputCode";
+import { useAlert } from "@/context/alertContext";
 
 
 
@@ -32,15 +33,54 @@ export default function Login() {
   const [forgot, setForgot] = useState(false);
   const { signIn } = useContext(AuthenticationContext);
   const { theme } = useTheme();
+  const { handleAlert } = useAlert();
   const [optionsTenant, setOptionsTenants] = useState([])
-  const { language } = useLanguage(); // Obtendo o idioma atual
+  const { language, translateText } = useLanguage(); // Obtendo o idioma atual
   const { logoUrl, tenantId, handleTenant } = useTenant(); // Obtendo o idioma atual
 
   const [email, setEmail] = useState<string>('')
   const [tenant, setTenant] = useState<any>('')
+  const [code, setCode] = useState(["", "", "", ""]);
   const [isReset, setIsReset] = useState(false)
   const [isResetCode, setIsResetCode] = useState(false)
   const t = translations[language];  // Usando as traduções de acordo com o idioma
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [strength, setStrength] = useState(0);
+  const [error, setError] = useState("");
+
+  const calculateStrength = (password: string) => {
+    let score = 0;
+
+    if (password.length >= 8) score += 20;
+    if (/[A-Z]/.test(password)) score += 20;
+    if (/[a-z]/.test(password)) score += 20;
+    if (/\d/.test(password)) score += 20;
+    if (/[\W_]/.test(password)) score += 20;
+
+    setStrength(score);
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setPassword(value);
+    calculateStrength(value);
+    if (confirmPassword && value !== confirmPassword) {
+      setError("Passwords do not match!");
+    } else {
+      setError("");
+    }
+  };
+
+  const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setConfirmPassword(value);
+    if (password && value !== password) {
+      setError("Passwords do not match!");
+    } else {
+      setError("");
+    }
+  };
 
   const signInSchema = z.object({
     email: z.string().email({ message: language === 'en' ? "Invalid email address" : 'Endereço de e-mail inválido' }),
@@ -81,6 +121,49 @@ export default function Login() {
         email,
         tenant
       })
+
+      console.log(data, status)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const verifyPasswordResetCode = async () => {
+    try {
+      const { data, status } = await api.post(`/password/verify-code`, {
+        email,
+        tenant,
+        codigo: code.join('')
+      })
+      const menssage = await translateText(data.message)
+      if (status === 200) {
+        setIsResetCode(true);
+      } else {
+        handleAlert('alert-warning', menssage)
+      }
+
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const savePassword = async () => {
+    try {
+      const { data, status } = await api.put(`/update/password`, {
+        email,
+        password,
+        tenant,
+      })
+      const menssage = await translateText(data.message)
+      if (status === 200) {
+        setIsResetCode(false);
+        setForgot(false);
+        setIsReset(false);
+        handleAlert('alert-success', menssage)
+      } else {
+        handleAlert('alert-warning', menssage)
+      }
     } catch (error) {
       console.log(error)
     }
@@ -190,82 +273,94 @@ export default function Login() {
                         setForgot(false)
                         setIsReset(false)
                       }}>
-                        <PiArrowLeft /> Back to log in
+                        <PiArrowLeft /> {t.backToLogIn}
                       </button>
                     </div>
                   </>
                 ) : (
                   <>
-                  {!isResetCode ? (
-                    <>
-                    <div className="p-4 bg-primary w-fit rounded-md mx-auto my-4">
-                      <PiEnvelopeOpenLight className="w-8  h-8" />
-                    </div>
-                    <div className="flex flex-row p-1 justify-center">
-                      <p>We'll send you reset instructions</p>                    
-                    </div>
+                    {!isResetCode ? (
+                      <>
+                        <div className="p-4 bg-primary w-fit rounded-md mx-auto my-4">
+                          <PiEnvelopeOpenLight className="w-8  h-8" />
+                        </div>
+                        <div className="flex flex-row p-1 justify-center">
+                          <p>{t.resetInstructions}</p>
+                        </div>
 
-                    <div className="flex gap-2 justify-center">
-                      <input type="text" maxLength={1} className="input input-bordered w-12 text-center" />
-                      <input type="text" maxLength={1} className="input input-bordered w-12 text-center" />
-                      <input type="text" maxLength={1} className="input input-bordered w-12 text-center" />
-                      <input type="text" maxLength={1} className="input input-bordered w-12 text-center" />
-                    </div>
+                        <InputCode code={code} setCode={setCode} />
 
-                    <Button type="button" className="mt-4 bg-primary hover:bg-primary hover:brightness-110" disabled={tenant?.label === ''} onClick={() => setIsResetCode(true)}>
-                      {t.continue}
-                    </Button>
+                        <Button type="button" className="mt-4 bg-primary hover:bg-primary hover:brightness-110" disabled={tenant?.label === ''} onClick={verifyPasswordResetCode}>
+                          {t.continue}
+                        </Button>
 
-                    <div className="flex flex-row p-1">
-                      <button type="button" className="flex flex-row  gap-2 items-center text-gray-500 text-sm text-nowrap" onClick={() => setIsReset(false)}>
-                        didn't receive the email?<span className="text-primary"> click to resend </span>
-                      </button>
-                    </div>
+                        <div className="flex flex-row p-1">
+                          <button type="button" className="flex flex-row  gap-2 items-center text-gray-500 text-sm text-nowrap" onClick={() => setIsReset(false)}>
+                            {t.notReceiveEmail}<span className="text-primary"> {language === 'pt' ? 'clique para reenviar' : 'click to resend'}</span>
+                          </button>
+                        </div>
 
-                    <div className="flex flex-row p-1">
-                      <button type="button" className="flex flex-row  gap-2 items-center text-gray-500 text-sm underline text-nowrap" onClick={() => {
-                        setForgot(false)
-                        setIsReset(false)
-                      }}>
-                        <PiArrowLeft /> Back to log in
-                      </button>
-                    </div>
-                    </>
-                  ) :(
-                    <>
-                    <div className="p-4 bg-primary w-fit rounded-md mx-auto my-4">
-                      <PiDotsThreeFill className="w-8  h-8" />
-                    </div>
-                    <div className="flex flex-row p-1 justify-center">
-                      <p>Set new password</p>                    
-                    </div>
+                        <div className="flex flex-row p-1">
+                          <button type="button" className="flex flex-row  gap-2 items-center text-gray-500 text-sm underline text-nowrap" onClick={() => {
+                            setForgot(false)
+                            setIsReset(false)
+                          }}>
+                            <PiArrowLeft />  {t.backToLogIn}
+                          </button>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="p-4 bg-primary w-fit rounded-md mx-auto my-4">
+                          <PiDotsThreeFill className="w-8  h-8" />
+                        </div>
+                        <div className="flex flex-row p-1 justify-center">
+                          <p>{t.setnewpassword}</p>
+                        </div>
 
-                    <input type="password" maxLength={1} className="input input-bordered w-full" />
-                    <progress className="progress progress-warning w-full rounded-none" value="55" max="100"></progress>
-                    <input type="password" maxLength={1} className="input input-bordered w-full" />
-                    <progress className="progress progress-warning w-full rounded-none" value="45" max="100"></progress>
+                        <div className="flex flex-col gap-2 w-full">
+                          <input
+                            type="password"
+                            className="input input-bordered w-full"
+                            placeholder="Enter your password"
+                            value={password}
+                            onChange={handlePasswordChange}
+                          />
+                          <progress className="progress progress-warning w-full rounded-none" value={strength} max="100"></progress>
 
-                    <Button type="button" className="mt-4 bg-primary hover:bg-primary hover:brightness-110"  onClick={() => setIsResetCode(true)}>
-                      {t.resetPasswordButton}
-                    </Button>
+                          <input
+                            type="password"
+                            className="input input-bordered w-full"
+                            placeholder="Confirm your password"
+                            value={confirmPassword}
+                            onChange={handleConfirmPasswordChange}
+                          />
+                          <progress className="progress progress-warning w-full rounded-none" value={error ? 45 : 100} max="100"></progress>
 
-                    <div className="flex flex-row p-1">
-                      <button type="button" className="flex flex-row  gap-2 items-center text-gray-500 text-sm text-nowrap" onClick={() => {setIsReset(false), setIsResetCode(false)}}>
-                        didn't receive the email?<span className="text-primary"> click to resend </span>
-                      </button>
-                    </div>
+                          {error && <p className="text-red-500 text-sm">{error}</p>}
+                        </div>
 
-                    <div className="flex flex-row p-1">
-                      <button type="button" className="flex flex-row  gap-2 items-center text-gray-500 text-sm underline text-nowrap" onClick={() => {
-                        setForgot(false)
-                        setIsReset(false)
-                      }}>
-                        <PiArrowLeft /> Back to log in
-                      </button>
-                    </div>
-                    </>
-                  )}
-                  
+                        <Button type="button" className="mt-4 bg-primary hover:bg-primary hover:brightness-110" disabled={strength < 50} onClick={savePassword}>
+                          {t.resetPasswordButton}
+                        </Button>
+
+                        <div className="flex flex-row p-1">
+                          <button type="button" className="flex flex-row  gap-2 items-center text-gray-500 text-sm text-nowrap" onClick={() => { setIsReset(false), setIsResetCode(false) }}>
+                          {t.notReceiveEmail}<span className="text-primary"> {language === 'pt' ? 'clique para reenviar' : 'click to resend'}</span>
+                          </button>
+                        </div>
+
+                        <div className="flex flex-row p-1">
+                          <button type="button" className="flex flex-row  gap-2 items-center text-gray-500 text-sm underline text-nowrap" onClick={() => {
+                            setForgot(false)
+                            setIsReset(false)
+                          }}>
+                            <PiArrowLeft /> {t.backToLogIn}
+                          </button>
+                        </div>
+                      </>
+                    )}
+
                   </>
                 )}
               </>

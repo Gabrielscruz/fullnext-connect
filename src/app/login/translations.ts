@@ -7,11 +7,14 @@ export const translations = {
     forgotPassword: 'Forgot my password',
     signInButton: 'Sign In',
     backToLogIn: 'Back to log in',
+    notReceiveEmail: "didn't receive the email?",
+    resetInstructions: 'reset instructions',
     resetPasswordButton: 'Reset password',
     heroTitle: 'Your gateway to smart control',
     heroSubtitle: 'Monitor, manage, evolve.',
     continue: 'Continue',
-    resetPassword: 'Reset Password'
+    resetPassword: 'Reset Password',
+    setnewpassword: 'Set new password'
   },
   pt: {
     signInTitle: 'Entrar na sua conta',
@@ -22,9 +25,12 @@ export const translations = {
     signInButton: 'Entrar',
     resetPasswordButton: 'Redefinir senha',
     backToLogIn: 'Voltar para fazer login',
+    notReceiveEmail: "Não recebeu o e-mail?",
+    resetInstructions: 'instruções de redefinição',
     heroTitle: 'Seu portal para o controle inteligente',
     heroSubtitle: 'Monitorar, gerenciar, evoluir.',
     continue: 'Continuar',
-    resetPassword: 'Redefinir senha'
+    resetPassword: 'Redefinir senha',
+    setnewpassword: 'Definir nova senha'
   }
 };

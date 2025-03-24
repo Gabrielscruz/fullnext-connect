@@ -4,7 +4,7 @@ import { parseCookies } from "nookies";
 const { "nextauth.token": token, tenant } = parseCookies();
 
 
-export const baseURL = "https://api-full-next.onrender.com/";
+export const baseURL = "http://localhost:3333/";
 
 export const api = axios.create({ baseURL });
 if (token) {

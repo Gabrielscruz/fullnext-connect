@@ -2,7 +2,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { v4 as uuidv4 } from 'uuid';
 import Image from "next/image";
 
 import logoDark from "@/assets/imgs/fullnextDark.svg";
@@ -180,7 +179,7 @@ export default function Organization({ searchParams }: searchParamsProps) {
 
     const onSave = async () => {
         setIsLoading(true);
-        const password = uuidv4()
+        const password = `${name.toLocaleLowerCase()}_${Math.floor(1000 + Math.random() * 9000)}`;
         const MIN_LOADING_TIME = 3000; // 30 segundos
         const startTime = Date.now();
         const nameOrg = name.toLocaleLowerCase()
